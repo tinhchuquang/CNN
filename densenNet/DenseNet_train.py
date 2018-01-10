@@ -36,8 +36,10 @@ if __name__ == "__main__":
         print('OK')
         print(global_step.eval())
 
+
     writer = tf.summary.FileWriter
     summary_writer = writer(logs_folder)
+    summary_writer.add_graph(sess.graph)
 
     number_train_image, number_test_image = load_data.global_image()
 

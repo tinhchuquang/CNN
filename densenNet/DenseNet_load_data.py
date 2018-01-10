@@ -74,7 +74,6 @@ def init():
     for i in range(len(all_data)):
         for j in range((int)(0.9*len(all_data[i]))):
             data.append(all_data[i][j])
-    print(len(data))
     np.random.shuffle(data)
 
 def init_test():
@@ -83,7 +82,6 @@ def init_test():
     for i in range(len(all_data)):
         for j in range((int)(0.9*len(all_data[i])), len(all_data[i])):
             data_test.append(all_data[i][j])
-    print(len(data_test))
     np.random.shuffle(data_test)
 
 

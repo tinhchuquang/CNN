@@ -104,6 +104,7 @@ def add_internal_layer(x, is_training):
     else:
         output = composite_function(x, growth_rate, filter_size=3)
 
+    # print(x.get_shape(), ' ', output.get_shape())
     return tf.concat(axis=3, values=(x, output))
 
 def add_block(input, num_layer, is_training):
@@ -112,6 +113,7 @@ def add_block(input, num_layer, is_training):
         with tf.variable_scope("Layer%d" % layer):
             output = add_internal_layer(output, is_training)
 
+            # print("Layer '", str(layer), "' :" ,output.get_shape())
     return output
 
 def transition_layer(x, is_training):
@@ -130,7 +132,7 @@ def last_transition_layer(x, is_training):
     output = tf.nn.relu(output)
 
     # Avg pooling
-    filter_size = x.get_shape()[-2]
+    filter_size = 5#x.get_shape()[-2]
     output = avg_pool(output, filter_size, filter_size)
 
     # Fully connected
@@ -148,12 +150,12 @@ def inference(x, y_, is_training):
     # First convolutional layer: filter 3x3x(2 * growth_rate)
 
     with tf.variable_scope("Init_conv"):
-        output = conv2d(x, out_filter=2* growth_rate, filter_size=3, strides=1)
+        output = conv2d(x, out_filter=2* growth_rate, filter_size=3, strides=2)
 
     # Dense block
     for block in range(total_block):
         with tf.variable_scope("Block_%d" % block):
-            output = add_block(x, layer_per_block, is_training)
+            output = add_block(output, layer_per_block, is_training)
 
             print("Shape after dense block", str(block), ": ", output.get_shape())
             if block != (total_block-1):

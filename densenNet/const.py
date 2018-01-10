@@ -13,6 +13,6 @@ save_folder = './save_model/'
 logs_folder = './summary/'
 
 
-batch_size = 128
+batch_size = 32
 int_lnr = 0.01
 num_epoch = 200
