@@ -1,2 +1,0 @@
-WEIGHT_INIT = 0.01
-USE_BN = True
